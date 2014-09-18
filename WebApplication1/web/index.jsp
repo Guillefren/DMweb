@@ -18,6 +18,9 @@
         <h1> <%=hola %> </h1>
         
      <a href="./RU.jsp">Registrar usuario</a>
+     <br/>
+     <a href="./IngresarComentario.jsp">Ingresar comentarios</a>
+     
        
         
         

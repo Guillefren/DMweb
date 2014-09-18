@@ -6,6 +6,7 @@
 
 package Conexionbd;
 
+import Logica.Comentario;
 import Logica.Proveedor;
 import Logica.cliente;
 import java.sql.ResultSet;
@@ -150,6 +151,45 @@ public int getCantPro(String nom, int nu){
         return cant;    
    }
         
+public List<Comentario> getListaComentarios(){
+        List<Comentario> listaComent = new LinkedList();
+        Conexionbd.conexion bd = new Conexionbd.conexion();
+        
+        try{
+            bd.conectarBase();
+            ResultSet rs = bd.sentencia.executeQuery("SELECT * FROM COMENTARIOS");
+            while(rs.next()){
+                Comentario com = new Comentario();
+                
+                com.setId(rs.getInt("ID"));
+                com.setIdPadre(rs.getInt("IDPADRE"));
+                com.setTexto(rs.getString("TEXTO"));
+                 java.sql.Date sqldate = rs.getDate("FECHA");
+                Date d = new Date(sqldate.getTime());
+                com.setFecha(d);
+                String nombreprod = rs.getString("PRODUCTO");
+//              ResultSet rs2 = bd.sentencia.executeQuery("SELECT * FROM PRODUCTO WHERE NOMBRE = '"+nombreprod+"'");
+//            
+//              
+//              prod.setNombre(no);
+                producto prod = new producto();
+                prod.setNombre(nombreprod);
+                
+                com.setProducto(prod);
+                String nickcliente = rs.getString("CLIENTE");
+                cliente cli = new cliente();
+                cli.setNick(nickcliente);
+                com.setCliente(cli);
+                
+                listaComent.add(com);
+            }
+         }catch (SQLException ex) {
+                Logger.getLogger(getLista.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return listaComent;    
+   }
+
+
         
   public List<producto> getListaProductoSolo(){
         List<producto> ListaProductoSolo = new LinkedList();

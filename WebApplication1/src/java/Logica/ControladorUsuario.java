@@ -19,20 +19,42 @@ public class ControladorUsuario {
     private List<cliente> ListaClientes;
     private List<Proveedor> ListaProveedores;
     private List<OrdenDeCompra> ListaOrdenes;
+    private List<Comentario> ListaComentarios;
     
     public void ControladorUsuario(){
         
      ListaClientes = new LinkedList();
     ListaProveedores = new LinkedList();
     ListaOrdenes = new LinkedList();
-    
+    ListaComentarios = new LinkedList();
     // sintaxis List<Persona> listalinked = new LinkedList<Persona>();
     }
-  public List<OrdenDeCompra> getNumeroOrden(String nic){
+    
+  public List<OrdenDeCompra> getNumeroOrden(){
         getLista gl = new getLista();
         ListaOrdenes = gl.getListaNumeroOrden();
     return ListaOrdenes;
 }
+  
+  public List<DataComentario> getListaComentarios(){
+        getLista gl = new getLista();
+        List<DataComentario> ldatac = new LinkedList();
+        List<Comentario> lcoment = gl.getListaComentarios();
+        for(int i=0; i<lcoment.size();i++){
+                DataComentario dc = new DataComentario();
+                dc.setFecha(lcoment.get(i).getFecha());
+                dc.setId(lcoment.get(i).getId());
+                dc.setIdPadre(lcoment.get(i).getIdPadre());
+                dc.setNickCliente(lcoment.get(i).getCliente().getNick());
+                dc.setNombreProducto(lcoment.get(i).getProducto().getNombre());
+                dc.setTexto(lcoment.get(i).getTexto());
+                
+                ldatac.add(dc);
+        }
+        return ldatac;
+}
+  
+  
   public List<DataOrdenDeCompra> getListaOrdenCompra(){
         getLista gl = new getLista();
         List<DataOrdenDeCompra> ldorden = new LinkedList();

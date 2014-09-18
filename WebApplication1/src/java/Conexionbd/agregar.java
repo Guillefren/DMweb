@@ -5,6 +5,7 @@
  */
 
 package Conexionbd;
+import Logica.Comentario;
 import Logica.cliente;
 import Logica.Proveedor;
 import Logica.Compuesta;
@@ -51,6 +52,34 @@ public class agregar {
      
      
      }
+    
+     public void agregarComentario(Comentario com){
+     Conexionbd.conexion bd;
+     bd = new Conexionbd.conexion();
+     bd.conectarBase();
+         try {
+           //  java.sql.Date.valueOf(cli.getNacimiento().toString())
+         //cli.getNacimiento().getYear()+"-"+cli.getNacimiento().getMonth()+"-"+cli.getNacimiento().getDay()+
+           java.sql.Date fecha = new java.sql.Date(com.getFecha().getTime());
+            String tipo = "c";  
+              
+              //cal.getTime().getYear()+"-"+cal.getTime().getMonth()+"-"+cal.getTime().getDay()
+             bd.sentencia.executeQuery("INSERT INTO COMENTARIOS(IDPADRE,ID,TEXTO,FECHA,PRODUCTO,CLIENTE)VALUES('"+com.getIdPadre()+"','"+com.getId()+"','"+com.getTexto()+"','"+fecha+"','"+com.getProducto().getNombre()+"','"+com.getCliente().getNick()+"')");
+         
+         
+         } catch (SQLException ex) {
+             System.out.println("No se pudo agregar a Base de datos");
+             Logger.getLogger(agregar.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         bd.desconectarBaseDeDatos();
+     
+     
+     
+     }
+    
+    
+    
+    
      public void agregarCompuesta(Compuesta comp){
             Conexionbd.conexion bd;
             bd = new Conexionbd.conexion();

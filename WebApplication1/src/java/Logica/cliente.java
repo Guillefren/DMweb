@@ -14,10 +14,45 @@ import java.util.*;
  */
 public class cliente extends Usuario{
         private List<OrdenDeCompra> listaordenes;
+        private List<Comentario> listacomentarios;
         
    public cliente(){
        listaordenes = new LinkedList();
+       listacomentarios = new LinkedList();
     }
+
+    public List<OrdenDeCompra> getListaordenes() {
+        return listaordenes;
+    }
+
+    public void setListaordenes(List<OrdenDeCompra> listaordenes) {
+        this.listaordenes = listaordenes;
+    }
+
+    public List<Comentario> getListacomentarios() {
+        return listacomentarios;
+    }
+
+    public void setListacomentarios(List<Comentario> listacomentarios) {
+        this.listacomentarios = listacomentarios;
+    }
+    
+   public void addComentario(Comentario c){
+   agregar ag = new agregar();
+  ag.agregarComentario(c);
+        
+   }
+
+  public void ComentarProducto(Comentario c, producto p){
+  
+  Comentario cc = new Comentario();
+  cc = c;
+  cc.setProducto(p);
+ 
+  agregar ag = new agregar();
+  ag.agregarComentario(cc);
+  
+  }
    
    public void setDatos(String nick, String nombre, String apellido, String email, Date fnac, String Imagen,String contra){
         this.apellido = apellido;

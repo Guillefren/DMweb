@@ -54,10 +54,8 @@ public class DMServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
      
            
-            FileItemFactory file_factory = new DiskFileItemFactory();
- 
-        /*ServletFileUpload esta clase convierte los input file a FileItem*/
-        ServletFileUpload servlet_up = new ServletFileUpload(file_factory);
+         String coso = request.getParameter("Productos");
+         out.println(coso);
         /*sacando los FileItem del ServletFileUpload en una lista */
         
            
@@ -67,71 +65,17 @@ public class DMServlet extends HttpServlet {
             
 
           
-        List items = servlet_up.parseRequest(request);
-        String nick ="";
-            String imagen ="";
-           
-            String nombre =""; 
-            String apellido ="";
-            String contrasenia="";
-            String verificar="";
-            String email ="";
-            String tipo ="";
-            String fechanacimiento ="";
-            String linkPagina ="";
-            String nombreCompania ="";
-            String dia="";
-            String mes="";
-            String anio="";
-            
-             
+    
         
            
-            /*FileItem representa un archivo en memoria que puede ser pasado al disco duro*/
-            FileItem   item = (FileItem) items.get(7);
-            /*item.isFormField() false=input file; true=text field*/               
-            if (! item.isFormField()){
-                /*cual sera la ruta al archivo en el servidor*/
-                File archivo_server = new File
-        ("C:/Users/Guilleeu/Documents/NetBeansProjects/github/dm/dm/directmarket/DirectMarketWeb/img/"+item.getName());
-                /*y lo escribimos en el servidor*/
-                item.write(archivo_server);     
-             imagen =item.getName();
-            }
-           //id del Juego 
-   
-     
             
-            item = (FileItem) items.get(0);
-            nick =item.getString();
-              item = (FileItem) items.get(1);
-             email =item.getString();
-              item = (FileItem) items.get(2);
-             dia =item.getString();
-             item = (FileItem) items.get(3);
-             mes =item.getString();
-             item = (FileItem) items.get(4);
-             anio =item.getString();
-             item = (FileItem) items.get(5);
-             nombre =item.getString();
-             item = (FileItem) items.get(6);
-            apellido =item.getString();
-             item = (FileItem) items.get(7);
-             contrasenia =item.getString();
-             item = (FileItem) items.get(8);
-           verificar =item.getString();
-           item = (FileItem) items.get(9);
-           tipo =item.getString();
-           item = (FileItem) items.get(10);
-           nombreCompania =item.getString();
-            item = (FileItem) items.get(11);
-           linkPagina =item.getString();
+          
            
            
            
            
            
-          ControladorUsuario cu = new ControladorUsuario();
+          
           
           
 //            String nick = request.getParameter("Nick");
@@ -139,14 +83,7 @@ public class DMServlet extends HttpServlet {
 //            String apellido = request.getParameter("Apellido");
 //            String email = request.getParameter("Email");
             
-            if(cu.existeCliente(nick, email)){
             
-             out.println("<script>"); 
-                    out.println("alert('Nick o Email ya ingresado')"); 
-                    out.println("</script>"); 
-            
-            }else{
-                
 //            String contraseña = request.getParameter("Contrasena");
 //            String verificar = request.getParameter("Verificar");
 //            String dia = request.getParameter("day");
@@ -156,41 +93,8 @@ public class DMServlet extends HttpServlet {
 //            String tipo = request.getParameter("tipo");
 //            String lp = request.getParameter("Sitio Web");
 //            String nc = request.getParameter("Nombre Compania");
-            
-           out.println(dia);
-           out.println(mes);
-           out.println(anio);
-           out.println(nombre);
-           out.println(apellido);
-           out.println(email);
-           out.println(contrasenia);
-           out.println(verificar);
-           out.println(imagen);
-           int d = Integer.valueOf(dia);
-           int m = Integer.valueOf(mes);
-           int a = Integer.valueOf(anio);
-           Date fecha = new Date(d,m,a);
-           
-           
-           
-           
-           
-           if(contrasenia.equals(verificar)){
-               if(tipo.equals("Cliente")){
-                cu.RegistrarCliente(nick, nombre, apellido, email, fecha, imagen, contrasenia);
-               }
-               else{
-               cu.RegistrarProveedor(nick, nombre, apellido, email, fecha, imagen, nombreCompania, linkPagina, contrasenia);
-               }
-                
-           }  
-                
-           else{
-                   out.println("<script>"); 
-                    out.println("alert('Error al Enviar')"); 
-                    out.println("</script>"); 
-                   }
-            }    
+       
+               
            
         } finally {
             out.close();
