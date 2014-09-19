@@ -166,7 +166,7 @@
            %>
         
         
-        
+        <img src="C:/imgproyecto/<%=imagen%>"/>
         
         
     </body>
