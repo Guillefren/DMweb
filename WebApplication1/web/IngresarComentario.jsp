@@ -16,7 +16,7 @@
 <% 
 ControladorUsuario contU = new ControladorUsuario();
 List<OrdenDeCompra> listacom = contU.getNumeroOrden();
-OrdenDeCompra oc = listacom.get(2); // obtengo cualquier orden de compra para trabajar con los productos
+OrdenDeCompra oc = listacom.get(5); // obtengo cualquier orden de compra para trabajar con los productos
 //String[] arrayhojas = new String[20];
 List<producto> lp = oc.getLproducto();
 List<DataProducto> ldp = new LinkedList();
@@ -52,7 +52,8 @@ return coso;
         
         <form action = uploadFile.jsp method = "post"/>
         Ordenes de Compra 
-            <select name="Productos" >
+        <br/>
+            <select name="Productos" multiple="multiple" id="Productos" >
             <% for (int i=0; i<ldp.size(); i++) {
 
                     out.print("<option selected>");
@@ -71,7 +72,7 @@ return coso;
                  
                  
                     out.print("<option selected>");
-                    out.print( listacom.get(2).getCliente().getNick());
+                    out.print( listacom.get(5).getCliente().getNick());
                     out.print("</option selected>");
                  
                  %> 
@@ -80,10 +81,10 @@ return coso;
                   </select>
                  <input type="text" name="Comentario" size="50"/>
                  
-              <input type="submit" value="Enviar"/> 
-              
-        </form>
              
+              <input type="submit" value="Enviar"/>
+        </form>
+               
          
             
             

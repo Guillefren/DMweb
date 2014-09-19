@@ -22,19 +22,78 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Lista de comentarios</h1>
         
          <%
        
         
-         String Producto =request.getParameter("Productos");
-        out.println(Producto);
+       //  String[] Productos = request.getParameterValues("Productos");
+       String produ = request.getParameter("Productos");
         
         String nickcliente = request.getParameter("cliente");
         
         ControladorUsuario cu = new ControladorUsuario();
         ControladorProductoyEspecificaciones cpe = new ControladorProductoyEspecificaciones();
         
+        producto p = cpe.SeleccionarProducto(produ);
+        List<DataComentario> listcoment = cu.getListaComentariosProd(p);
+        
+        for(int i = 0; i<listcoment.size(); i++){
+        
+        //indicando número, texto, cliente y fecha de cada uno  
+           
+        
+        
+        }
+        
+        
+        %>
+        <div>
+            <select name="Comentarios">
+            <%
+            for(int i=0; i<listcoment.size();i++){
+            
+            out.print("<option selected>");
+                    out.print(listcoment.get(i).getId());
+                   out.print(listcoment.get(i).getTexto());
+                   out.print(listcoment.get(i).getNickCliente());
+                   out.print(listcoment.get(i).getFecha());
+                    out.print("</option selected>");
+            
+            }
+            
+            
+            %>
+            
+            </select>
+            Comentar
+            
+            Ingrese id padre (0 si no es respuesta)
+            <input type="number" name="id">
+            <br/>
+            Ingrese texto
+            <input type="text" name="texto comentario">
+            <br/>
+            
+        </div>
+        
+		
+        
+        <%
+            Comentario coment = new Comentario();
+            
+            
+            
+            
+        /*    
+            En caso de que sea posible crearlo, se deberá ingresar el texto 
+            del comentario, el identificador
+                    del comentario padre, en caso de que sea una respuesta, 
+            utilizando la fecha actual del Sistema.
+            
+            
+        producto pr = new producto();
+            pr.setNombre(request.getParameter("prod"));
         cliente c = cu.SeleccionarCliente(nickcliente);
         producto p= cpe.SeleccionarProducto(Producto);
         
@@ -50,8 +109,11 @@
         
         c.ComentarProducto(com, p);
         
+        */
         
-        out.println("se comento");
+        
+        
+        
         
         %>
         

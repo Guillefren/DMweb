@@ -54,6 +54,26 @@ public class ControladorUsuario {
         return ldatac;
 }
   
+  public List<DataComentario> getListaComentariosProd(producto p){
+        getLista gl = new getLista();
+        List<DataComentario> ldatac = new LinkedList();
+        List<Comentario> lcoment = gl.getListaComentarios();
+        for(int i=0; i<lcoment.size();i++){
+            if(lcoment.get(i).getProducto().getNombre().equals(p.getNombre())){
+                DataComentario dc = new DataComentario();
+                dc.setFecha(lcoment.get(i).getFecha());
+                dc.setId(lcoment.get(i).getId());
+                dc.setIdPadre(lcoment.get(i).getIdPadre());
+                dc.setNickCliente(lcoment.get(i).getCliente().getNick());
+                dc.setNombreProducto(lcoment.get(i).getProducto().getNombre());
+                dc.setTexto(lcoment.get(i).getTexto());
+                
+                ldatac.add(dc);
+            }
+        }
+        return ldatac;
+}
+  
   
   public List<DataOrdenDeCompra> getListaOrdenCompra(){
         getLista gl = new getLista();
