@@ -7,6 +7,7 @@
 package Logica;
 import java.util.*; 
 import Conexionbd.*;
+import javax.servlet.http.HttpSession;
 
 import javax.swing.JOptionPane;
 /**
@@ -20,14 +21,24 @@ public class ControladorUsuario {
     private List<Proveedor> ListaProveedores;
     private List<OrdenDeCompra> ListaOrdenes;
     private List<Comentario> ListaComentarios;
-    
+    HttpSession sessionControlador = null;
     public void ControladorUsuario(){
         
      ListaClientes = new LinkedList();
     ListaProveedores = new LinkedList();
     ListaOrdenes = new LinkedList();
     ListaComentarios = new LinkedList();
-    // sintaxis List<Persona> listalinked = new LinkedList<Persona>();
+    
+// sintaxis List<Persona> listalinked = new LinkedList<Persona>();
+    }
+    
+    
+    public HttpSession getSessionControlador() {
+        return sessionControlador;
+    }
+
+    public void setSessionControlador(HttpSession sessionControlador) {
+        this.sessionControlador = sessionControlador;
     }
     
   public List<OrdenDeCompra> getNumeroOrden(){
@@ -213,4 +224,86 @@ public class ControladorUsuario {
      return false;
      }
      
+     
+     public String[] obtenerDatosUsr(String nombre){
+         ControladorUsuario cont = new ControladorUsuario();
+         String[] datos = new String[6];
+         if(cont.getTipo(nombre)=='c'){
+             cliente cli = new cliente();
+             cli=cont.SeleccionarCliente(nombre);
+             datos[0]=cli.getNick();
+             datos[1]=cli.getNombre();
+             datos[2]=cli.getApellido();
+             datos[3]=cli.getEmail();
+             datos[4]="clientes";
+             return datos;
+         }
+         else{
+             Proveedor prov = new Proveedor();
+             prov = cont.SeleccionarProv(nombre);
+             datos[0]=prov.getNick();
+             datos[1]=prov.getNombre();
+             datos[2]=prov.getApellido();
+             datos[3]=prov.getEmail();
+             datos[4]="proveedor";
+             datos[5]=prov.getLinkPagina();
+             return datos;
+                     
+         }
+         
+     }
+     
+      public char getTipo(String nombre){
+         getLista g = new getLista();
+        ListaClientes = g.getListaCliente();
+        ListaProveedores = g.getListaProveedor();
+        for(int i = 0;i<ListaClientes.size();i++){
+     
+         if(ListaClientes.get(i).getNick().equals(nombre)){
+             
+             return 'c';
+         }
+         if(ListaProveedores.get(i).getNick().equals(nombre)){
+             return 'p';
+         
+         }
+         
+        }
+        return 'n';
+     
+     }
+   
+      public boolean validarUsr(String nick, String psw){
+        //System.out.println(nick);
+        //System.out.println(psw);
+        getLista g = new getLista();
+        ListaClientes = g.getListaCliente();
+        for(int i = 0;i<ListaClientes.size();i++){
+           // System.out.println(ListaClientes.get(i).getNombre());
+            //System.out.println(ListaClientes.get(i).getContraseña());
+            
+                if(ListaClientes.get(i).getNick().equals(nick)){
+                    if(ListaClientes.get(i).getContraseña().equals(psw)){
+                        return true;
+                        }
+                    }    
+                }
+        
+        getLista p = new getLista();
+        ListaProveedores = p.getListaProveedor();
+        for(int j=0; j<ListaProveedores.size();j++){
+            //System.out.println(ListaProveedores.get(j).getNombre());
+            if(ListaProveedores.get(j).getNick().equals(nick)){
+                
+                //System.out.println(nick);
+                //System.out.println(psw);
+                if(ListaProveedores.get(j).getContraseña().equals(psw)){
+                    return true;
+                }
+            }
+        }
+        return false;
+            
+       }
+      
 }
